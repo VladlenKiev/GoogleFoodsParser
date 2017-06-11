@@ -2,9 +2,9 @@ import com.carrotsearch.sizeof.RamUsageEstimator;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 
+//-Xmx256m -Xms128m -XX:PermSize=128m -XX:MaxPermSize=128m
 public class Main {
 
     public static void main(String[] args) {
@@ -29,6 +29,7 @@ public class Main {
         System.out.println((Runtime.getRuntime().totalMemory() -
                 Runtime.getRuntime().freeMemory())/1024/1024+" Mb used");
 
+        System.out.println("RamUsage(wordCountMap)="+RamUsageEstimator.sizeOf(wordCountMap)/1024/1024+"Mb");
         System.out.println("RamUsage(userCountMap)="+RamUsageEstimator.sizeOf(userCountMap)/1024/1024+"Mb");
         System.out.println("RamUsage(productCountMap)="+RamUsageEstimator.sizeOf(productCountMap)/1024/1024+"Mb");
 

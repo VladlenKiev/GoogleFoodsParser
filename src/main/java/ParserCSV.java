@@ -17,7 +17,7 @@ public class ParserCSV {
         BufferedReader br = null;
         String line=null;
 
-        //ArrayList<User> userList=new ArrayList<User>();
+        //ArrayList<Word> wordList=new ArrayList<>();
         //HashMap<String,Product> productCountMap=new HashMap<String, Product>();
 
         try {
@@ -64,8 +64,8 @@ public class ParserCSV {
         String[] valueCSV=line.split(",");
         String[] words=valueCSV[9].split(" ");
         Word word[] = new Word[words.length];
-        for(int i=0;i<=words.length;i++){
-            word[i].setWord(words[i]);
+        for(int i=0;i<words.length;i++){
+            word[i] = new Word(words[i]);
         }
 
         return word;
