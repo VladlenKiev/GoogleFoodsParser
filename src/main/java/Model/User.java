@@ -1,4 +1,4 @@
-import javax.jws.soap.SOAPBinding;
+package Model;
 
 /**
  * Created by Владимир on 10.06.2017.
@@ -43,7 +43,7 @@ public class User implements Comparable<User>{
 
     @Override
     public String toString() {
-        return "User( Userid:"+UserId+" ProfileName:"+ProfileName+" counter: "+counter+")";
+        return "Model.User( Userid:"+UserId+" ProfileName:"+ProfileName+" counter: "+counter+")";
     }
 
     @Override

@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -36,9 +38,9 @@ public class Review{
 
     @Override
     public String toString() {
-        return "Review{" +
-                "Original Review='" + reviewOrg + '\'' +
-                ", Translated Review='" + reviewTranslated + '\'' +
+        return "Model.Review{" +
+                "Original Model.Review='" + reviewOrg + '\'' +
+                ", Translated Model.Review='" + reviewTranslated + '\'' +
                 '}';
     }
 }

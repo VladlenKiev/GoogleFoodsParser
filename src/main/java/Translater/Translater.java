@@ -1,3 +1,6 @@
+package Translater;
+
+import Model.Review;
 import com.google.api.services.translate.model.TranslationsListResponse;
 import com.google.common.collect.ImmutableList;
 

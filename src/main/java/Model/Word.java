@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * Created by Владимир on 11.06.2017.
  */
@@ -32,7 +34,7 @@ public class Word implements Comparable<Word>{
 
     @Override
     public String toString() {
-        return "Word =["+word+"] counter: "+counter+")";
+        return "Model.Word =["+word+"] counter: "+counter+")";
     }
 
     @Override

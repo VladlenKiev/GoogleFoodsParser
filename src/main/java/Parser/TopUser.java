@@ -1,3 +1,9 @@
+package Parser;
+
+import Model.Product;
+import Model.User;
+import Model.Word;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,26 +16,26 @@ import java.util.TreeSet;
 /**
  * Created by admin on 12.06.2017.
  */
-public class TopProduct extends Thread{
-    public Product product;
-    public HashMap<String,Product> productCountMap;
-    public TopProduct(){}
-    public TopProduct(HashMap<String,Product> productCountMap){
-        this.productCountMap = productCountMap;
+public class TopUser extends Thread{
+    public User user;
+    public HashMap<String,User> userCountMap;
+    public TopUser(){}
+    public TopUser(HashMap<String,User> userCountMap){
+        this.userCountMap = userCountMap;
     }
 
     @Override
     public void run() {
-        productParserThread(productCountMap);
+        userParserThread(userCountMap);
     }
 
-    public void productParserThread(HashMap<String, Product> productCountMap){
+    public void userParserThread(HashMap<String,User> userCountMap){
         String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
         BufferedReader br = null;
         String line=null;
 
-        //ArrayList<Word> wordList=new ArrayList<>();
-        //HashMap<String,Product> productCountMap=new HashMap<String, Product>();
+        //ArrayList<Model.Word> wordList=new ArrayList<>();
+        //HashMap<String,Model.Product> productCountMap=new HashMap<String, Model.Product>();
 
         try {
 
@@ -37,23 +43,23 @@ public class TopProduct extends Thread{
 
             while ((line=br.readLine())!=null){
 
-                //User user = splitCSVforUser(line);
-                Product product = splitCSVforProduct(line); //new Product();
-                //Word word[] = splitCSVforWord(line); //new Product();
+                User user = splitCSVforUser(line);
+                //Model.Product product = splitCSVforProduct(line); //new Model.Product();
+                //Model.Word word[] = splitCSVforWord(line); //new Model.Product();
                 //product.setProductId(splitCSVforProduct(line));
                 //assumeCountWordPerComments(word, wordCountMap);
-                //assumeCountReviewsPerUser(user, userCountMap);
-                assumeCountReviewsPerProduct(product,productCountMap);
+                assumeCountReviewsPerUser(user, userCountMap);
+                //assumeCountReviewsPerProduct(product,productCountMap);
 
 
             }
             //findMostActiveWord(wordCountMap);
-            //findMostActiveUsers(userCountMap);
-            findMostCommentProduct(productCountMap);
+            findMostActiveUsers(userCountMap);
+            //findMostCommentProduct(productCountMap);
 
             //System.out.println("wordCountMap.size()="+wordCountMap.size());
-            //System.out.println("userCountMap.size()="+userCountMap.size());
-            System.out.println("productCountMap.size()="+productCountMap.size());
+            System.out.println("userCountMap.size()="+userCountMap.size());
+            //System.out.println("productCountMap.size()="+productCountMap.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -109,7 +115,7 @@ public class TopProduct extends Thread{
         int c=0;
         for(Word w:wordsSortSet){
             /*if(c==productsSortSet.size()-1){
-                for (Product pMap:productCountMap.values()){
+                for (Model.Product pMap:productCountMap.values()){
                     if (pMap.getCounter()==1)
                         System.out.println(c+" ) "+pMap.toString());
                     if (c==400)
@@ -135,7 +141,7 @@ public class TopProduct extends Thread{
                 for (User uMap:userCountMap.values()){
                     if (uMap.getCounter()==1)
                         System.out.println(c + " ) " + uMap.toString());
-                    if (c==400)
+                    if (c==500)
                         break;
                     c++;
                 }

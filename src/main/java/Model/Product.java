@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * Created by Владимир on 11.06.2017.
  */
@@ -29,7 +31,7 @@ public class Product implements Comparable<Product>{
 
     @Override
     public String toString() {
-        return "Product( Productid:"+ProductId+" counter: "+counter+")";
+        return "Model.Product( Productid:"+ProductId+" counter: "+counter+")";
     }
 
     @Override

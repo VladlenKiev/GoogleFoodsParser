@@ -1,35 +1,27 @@
+package Parser;
+
+import Model.Product;
+import Model.User;
+import Model.Word;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
- * Created by admin on 12.06.2017.
+ * Created by Владимир on 10.06.2017.
  */
-public class TopUser extends Thread{
-    public User user;
-    public HashMap<String,User> userCountMap;
-    public TopUser(){}
-    public TopUser(HashMap<String,User> userCountMap){
-        this.userCountMap = userCountMap;
-    }
+public class ParserCSV {
 
-    @Override
-    public void run() {
-        userParserThread(userCountMap);
-    }
-
-    public void userParserThread(HashMap<String,User> userCountMap){
+        public static void userParser(HashMap<String,User> userCountMap,HashMap<String, Product> productCountMap, HashMap<String,Word> wordCountMap){
         String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
         BufferedReader br = null;
         String line=null;
 
-        //ArrayList<Word> wordList=new ArrayList<>();
-        //HashMap<String,Product> productCountMap=new HashMap<String, Product>();
+        //ArrayList<Model.Word> wordList=new ArrayList<>();
+        //HashMap<String,Model.Product> productCountMap=new HashMap<String, Model.Product>();
 
         try {
 
@@ -38,22 +30,22 @@ public class TopUser extends Thread{
             while ((line=br.readLine())!=null){
 
                 User user = splitCSVforUser(line);
-                //Product product = splitCSVforProduct(line); //new Product();
-                //Word word[] = splitCSVforWord(line); //new Product();
+                Product product = splitCSVforProduct(line); //new Model.Product();
+                Word word[] = splitCSVforWord(line); //new Model.Product();
                 //product.setProductId(splitCSVforProduct(line));
-                //assumeCountWordPerComments(word, wordCountMap);
-                assumeCountReviewsPerUser(user, userCountMap);
+                assumeCountWordPerComments(word, wordCountMap);
+                //assumeCountReviewsPerUser(user, userCountMap);
                 //assumeCountReviewsPerProduct(product,productCountMap);
 
 
             }
-            //findMostActiveWord(wordCountMap);
-            findMostActiveUsers(userCountMap);
+            findMostActiveWord(wordCountMap);
+            //findMostActiveUsers(userCountMap);
             //findMostCommentProduct(productCountMap);
 
-            //System.out.println("wordCountMap.size()="+wordCountMap.size());
+            System.out.println("wordCountMap.size()="+wordCountMap.size());
             System.out.println("userCountMap.size()="+userCountMap.size());
-            //System.out.println("productCountMap.size()="+productCountMap.size());
+            System.out.println("productCountMap.size()="+productCountMap.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -102,21 +94,14 @@ public class TopUser extends Thread{
         }
     }
 
-    private static void findMostActiveWord(HashMap<String,Word> wordCountMap){
+    private static void findMostActiveWord(HashMap<String, Word> wordCountMap){
         SortedSet<Word> wordsSortSet=new TreeSet<>(Collections.reverseOrder());
         wordsSortSet.addAll(wordCountMap.values());
 
         int c=0;
         for(Word w:wordsSortSet){
-            /*if(c==productsSortSet.size()-1){
-                for (Product pMap:productCountMap.values()){
-                    if (pMap.getCounter()==1)
-                        System.out.println(c+" ) "+pMap.toString());
-                    if (c==400)
+             if (c==1000)
                         break;
-                    c++;
-                }
-            }*/
             System.out.println(c+". "+w.toString());
             c++;
         }
@@ -135,7 +120,7 @@ public class TopUser extends Thread{
                 for (User uMap:userCountMap.values()){
                     if (uMap.getCounter()==1)
                         System.out.println(c + " ) " + uMap.toString());
-                    if (c==500)
+                    if (c==400)
                         break;
                     c++;
                 }
@@ -163,13 +148,28 @@ public class TopUser extends Thread{
     }
     public static void assumeCountWordPerComments(Word word[], HashMap<String,Word> wordCountMap){
         for (Word w:word){
-            if (wordCountMap.containsKey(w.getWord())) {
-                wordCountMap.get(w.getWord()).increaseCounterWord();
+            if(isDigitalAndSpecSymbol(w))
+                continue;
+            if (wordCountMap.containsKey(normalizeWord(w).getWord())) {
+                wordCountMap.get(normalizeWord(w).getWord()).increaseCounterWord();
             } else {
-                wordCountMap.put(w.getWord(), w);
+                wordCountMap.put(normalizeWord(w).getWord(), w);
             }
         }
-
-
     }
+
+    private static boolean isDigitalAndSpecSymbol(Word word){
+        if(word.getWord().equals("")||word.getWord().contentEquals("-")||word.getWord().contentEquals(",")||word.getWord().contentEquals(" ")||
+                word.getWord().equals("\"")||word.getWord().contentEquals("\"\"")||
+                word.getWord().equals("(")||word.getWord().contentEquals(")")||
+                word.getWord().length()==1||word.getWord().matches("\\d+")){
+            return true;
+        }
+        return false;
+    }
+    private static Word normalizeWord(Word word){
+        return new Word(word.getWord().replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('"',' ').replace('|',' ')
+                .replace(':',' ').replace('-',' ').replace(';',' ').replace('�',' ').replace('•',' ').replace('”',' ')
+                .replace('.',' ').replace('\"',' ').trim().toLowerCase());
+        }
 }

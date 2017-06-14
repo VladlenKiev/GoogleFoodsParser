@@ -1,3 +1,7 @@
+package Parser;
+
+import Model.Review;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,9 +28,6 @@ public class TopReview extends Thread{
         BufferedReader br = null;
         String line=null;
 
-        //ArrayList<Word> wordList=new ArrayList<>();
-        //HashMap<String,Product> productCountMap=new HashMap<String, Product>();
-
         try {
 
             br=new BufferedReader(new FileReader(path));
@@ -45,24 +46,19 @@ public class TopReview extends Thread{
             e.printStackTrace();
         }
 
-        iteratorReview(reviewList);
+        //iteratorReview(reviewList);
     }
 
     public static void iteratorReview(ArrayList<Review> reviewList){
         int c=0;
         for (Review s:reviewList){
-            System.out.println("Review #"+c+s.toString());
-            /*if (s.getReviewOrg().length()>1000)
-                System.out.println("Review #"+c+"lenght="+s.reviewOrg.length());*/
+            System.out.println("Model.Review #"+c+s.toString());
             c++;
         }
-
     }
-
 
     private static Review splitCSVforReview(String line){
         String[] valueCSV=line.split(",");
         return new Review(valueCSV[9],"not translated");
     }
-
 }
