@@ -1,18 +1,29 @@
-import com.carrotsearch.sizeof.RamUsageEstimator;
-import com.sun.management.GarbageCollectionNotificationInfo;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
- * Created by Владимир on 10.06.2017.
+ * Created by admin on 12.06.2017.
  */
-public class ParserCSV {
+public class TopWord extends Thread{
+    public Word word;
+    public HashMap<String,Word> wordCountMap;
+    public TopWord(){}
+    public TopWord(HashMap<String, Word> wordCountMap){
+        this.wordCountMap = wordCountMap;
+    }
 
-        public static void userParser(HashMap<String,User> userCountMap,HashMap<String, Product> productCountMap, HashMap<String,Word> wordCountMap){
+    @Override
+    public void run() {
+        wordParserThread(wordCountMap);
+    }
+
+    public void wordParserThread(HashMap<String, Word> wordCountMap){
         String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
         BufferedReader br = null;
         String line=null;
@@ -26,8 +37,8 @@ public class ParserCSV {
 
             while ((line=br.readLine())!=null){
 
-                User user = splitCSVforUser(line);
-                Product product = splitCSVforProduct(line); //new Product();
+                //User user = splitCSVforUser(line);
+                //Product product = splitCSVforProduct(line); //new Product();
                 Word word[] = splitCSVforWord(line); //new Product();
                 //product.setProductId(splitCSVforProduct(line));
                 assumeCountWordPerComments(word, wordCountMap);
@@ -41,8 +52,8 @@ public class ParserCSV {
             //findMostCommentProduct(productCountMap);
 
             System.out.println("wordCountMap.size()="+wordCountMap.size());
-            System.out.println("userCountMap.size()="+userCountMap.size());
-            System.out.println("productCountMap.size()="+productCountMap.size());
+            //System.out.println("userCountMap.size()="+userCountMap.size());
+            //System.out.println("productCountMap.size()="+productCountMap.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -97,8 +108,9 @@ public class ParserCSV {
 
         int c=0;
         for(Word w:wordsSortSet){
-             if (c==1000)
-                        break;
+            if (c==1000)
+                break;
+            c++;
             System.out.println(c+". "+w.toString());
             c++;
         }
@@ -168,5 +180,5 @@ public class ParserCSV {
         return new Word(word.getWord().replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('"',' ').replace('|',' ')
                 .replace(':',' ').replace('-',' ').replace(';',' ').replace('�',' ').replace('•',' ').replace('”',' ')
                 .replace('.',' ').replace('\"',' ').trim().toLowerCase());
-        }
+    }
 }

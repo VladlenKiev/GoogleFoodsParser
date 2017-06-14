@@ -1,18 +1,29 @@
-import com.carrotsearch.sizeof.RamUsageEstimator;
-import com.sun.management.GarbageCollectionNotificationInfo;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
- * Created by Владимир on 10.06.2017.
+ * Created by admin on 12.06.2017.
  */
-public class ParserCSV {
+public class TopProduct extends Thread{
+    public Product product;
+    public HashMap<String,Product> productCountMap;
+    public TopProduct(){}
+    public TopProduct(HashMap<String,Product> productCountMap){
+        this.productCountMap = productCountMap;
+    }
 
-        public static void userParser(HashMap<String,User> userCountMap,HashMap<String, Product> productCountMap, HashMap<String,Word> wordCountMap){
+    @Override
+    public void run() {
+        productParserThread(productCountMap);
+    }
+
+    public void productParserThread(HashMap<String, Product> productCountMap){
         String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
         BufferedReader br = null;
         String line=null;
@@ -26,22 +37,22 @@ public class ParserCSV {
 
             while ((line=br.readLine())!=null){
 
-                User user = splitCSVforUser(line);
+                //User user = splitCSVforUser(line);
                 Product product = splitCSVforProduct(line); //new Product();
-                Word word[] = splitCSVforWord(line); //new Product();
+                //Word word[] = splitCSVforWord(line); //new Product();
                 //product.setProductId(splitCSVforProduct(line));
-                assumeCountWordPerComments(word, wordCountMap);
+                //assumeCountWordPerComments(word, wordCountMap);
                 //assumeCountReviewsPerUser(user, userCountMap);
-                //assumeCountReviewsPerProduct(product,productCountMap);
+                assumeCountReviewsPerProduct(product,productCountMap);
 
 
             }
-            findMostActiveWord(wordCountMap);
+            //findMostActiveWord(wordCountMap);
             //findMostActiveUsers(userCountMap);
-            //findMostCommentProduct(productCountMap);
+            findMostCommentProduct(productCountMap);
 
-            System.out.println("wordCountMap.size()="+wordCountMap.size());
-            System.out.println("userCountMap.size()="+userCountMap.size());
+            //System.out.println("wordCountMap.size()="+wordCountMap.size());
+            //System.out.println("userCountMap.size()="+userCountMap.size());
             System.out.println("productCountMap.size()="+productCountMap.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -97,8 +108,15 @@ public class ParserCSV {
 
         int c=0;
         for(Word w:wordsSortSet){
-             if (c==1000)
+            /*if(c==productsSortSet.size()-1){
+                for (Product pMap:productCountMap.values()){
+                    if (pMap.getCounter()==1)
+                        System.out.println(c+" ) "+pMap.toString());
+                    if (c==400)
                         break;
+                    c++;
+                }
+            }*/
             System.out.println(c+". "+w.toString());
             c++;
         }
@@ -145,28 +163,13 @@ public class ParserCSV {
     }
     public static void assumeCountWordPerComments(Word word[], HashMap<String,Word> wordCountMap){
         for (Word w:word){
-            if(isDigitalAndSpecSymbol(w))
-                continue;
-            if (wordCountMap.containsKey(normalizeWord(w).getWord())) {
-                wordCountMap.get(normalizeWord(w).getWord()).increaseCounterWord();
+            if (wordCountMap.containsKey(w.getWord())) {
+                wordCountMap.get(w.getWord()).increaseCounterWord();
             } else {
-                wordCountMap.put(normalizeWord(w).getWord(), w);
+                wordCountMap.put(w.getWord(), w);
             }
         }
-    }
 
-    private static boolean isDigitalAndSpecSymbol(Word word){
-        if(word.getWord().equals("")||word.getWord().contentEquals("-")||word.getWord().contentEquals(",")||word.getWord().contentEquals(" ")||
-                word.getWord().equals("\"")||word.getWord().contentEquals("\"\"")||
-                word.getWord().equals("(")||word.getWord().contentEquals(")")||
-                word.getWord().length()==1||word.getWord().matches("\\d+")){
-            return true;
-        }
-        return false;
+
     }
-    private static Word normalizeWord(Word word){
-        return new Word(word.getWord().replace('(', ' ').replace(')', ' ').replace(',', ' ').replace('"',' ').replace('|',' ')
-                .replace(':',' ').replace('-',' ').replace(';',' ').replace('�',' ').replace('•',' ').replace('”',' ')
-                .replace('.',' ').replace('\"',' ').trim().toLowerCase());
-        }
 }
