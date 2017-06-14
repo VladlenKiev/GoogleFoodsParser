@@ -25,7 +25,7 @@ public class Main {
         ArrayList<Review> reviewList0 = new ArrayList<>();
 
 
-        Parser.TopUser topUserThread = new Parser.TopUser(userCountMap);
+        /*Parser.TopUser topUserThread = new Parser.TopUser(userCountMap);
         topUserThread.start();
         Parser.TopProduct topProductThread = new Parser.TopProduct(productCountMap);
         topProductThread.start();
@@ -41,7 +41,7 @@ public class Main {
             System.out.println("after join");
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         //Parser.ParserCSV.userParser(userCountMap,productCountMap,wordCountMap);
 
         reviewList0.add(new Review("1 As a big fan", "not translated"));
@@ -92,10 +92,5 @@ public class Main {
         System.out.println("userCountMap.size()="+userCountMap.size());
         System.out.println("productCountMap.size()=" + productCountMap.size());
         System.out.println("reviewList.size()=" + reviewList.size());
-
-
-        // System.out.println(ObjectSizeFetcher.getObjectSize(userArrayList));
-        /*for (int i=0;i<=10;i++)
-            System.out.println(userArrayList.get(i));*/
     }
 }
