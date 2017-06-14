@@ -3,19 +3,21 @@ package Model;
 /**
  * Created by Владимир on 11.06.2017.
  */
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product> {
     private String ProductId;
-    private int counter=1;
+    private int counter = 1;
 
     public Product(String ProductId) {
         this.ProductId = ProductId;
     }
-    public Product() {    }
+
+    public Product() {
+    }
 
 
-    public void increaseCounterCommentPerProduct(){
-        this.counter+=1;
-    };
+    public void increaseCounterCommentPerProduct() {
+        this.counter += 1;
+    }
 
     public String getProductId() {
         return ProductId;
@@ -31,14 +33,14 @@ public class Product implements Comparable<Product>{
 
     @Override
     public String toString() {
-        return "Model.Product( Productid:"+ProductId+" counter: "+counter+")";
+        return "Model.Product( Productid:" + ProductId + " counter: " + counter + ")";
     }
 
     @Override
     public int compareTo(Product product) {
-        if (this.counter>product.getCounter())
+        if (this.counter > product.getCounter())
             return 1;
-        else if(this.counter<product.getCounter())
+        else if (this.counter < product.getCounter())
             return -1;
         else
             return 0;

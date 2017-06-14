@@ -3,7 +3,6 @@ import Model.Review;
 import Model.User;
 import Model.Word;
 import Translater.*;
-import Translater.ListDivider;
 import com.carrotsearch.sizeof.RamUsageEstimator;
 
 import java.text.DecimalFormat;
@@ -90,6 +89,9 @@ public class Main {
         System.out.println("RamUsage(reviewList)="+RamUsageEstimator.sizeOf(reviewList)/1024/1024+"Mb");
 
         System.out.println("wordCountMap.size()="+wordCountMap.size());
+        System.out.println("userCountMap.size()="+userCountMap.size());
+        System.out.println("productCountMap.size()=" + productCountMap.size());
+        System.out.println("reviewList.size()=" + reviewList.size());
 
 
         // System.out.println(ObjectSizeFetcher.getObjectSize(userArrayList));
