@@ -31,7 +31,7 @@ public class TopProduct extends Thread {
     }
 
     public void productParserThread(HashMap<String, Product> productCountMap) {
-        String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
+        String path = "./Reviews.csv";
         BufferedReader br = null;
         String line = null;
 

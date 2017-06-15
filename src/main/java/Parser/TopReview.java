@@ -27,7 +27,8 @@ public class TopReview extends Thread {
     }
 
     public void reviewParserThread(ArrayList<Review> reviewList) {
-        String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
+        //String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
+        String path = "./Reviews.csv";
         BufferedReader br = null;
         String line = null;
 

@@ -32,7 +32,7 @@ public class TopWord extends Thread {
     }
 
     public void wordParserThread(HashMap<String, Word> wordCountMap) {
-        String path = "D:\\JAVA pr\\amazon-fine-food-reviews\\Reviews.csv";
+        String path = "./Reviews.csv";
         BufferedReader br = null;
         String line = null;
 

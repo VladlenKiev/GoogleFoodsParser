@@ -50,11 +50,9 @@ public class Translater extends Thread {
                 TranslationsListResponse tempTranslate = translate.translations().list(phrasesToTranslate, "fr").execute();
                 listTP.get(i).setTranslatedTPMessage(String.valueOf(tempTranslate.getTranslations().get(0).getTranslatedText()));
                 //System.out.println("translate #"+i+" = "+tempTranslate.getTranslations().size());
-                //System.out.println(translate.translations().list(phrasesToTranslate, "fr").execute());
 
             } catch (IOException e) {
-//                e.printStackTrace();
-                //System.out.println("API is wrong!");
+                e.printStackTrace();
             }
         }
 
@@ -104,6 +102,7 @@ public class Translater extends Thread {
     }
     public static String readAPIKEY(){
         String pathApi = "./API_KEY.txt";
+        //String pathApi = "D:\\JAVA pr\\amazon-fine-food-reviews\\API_KEY.txt";
         BufferedReader br = null;
         String line=null;
         String apiKey=null;

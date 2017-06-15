@@ -29,9 +29,13 @@ public class MakerTranslatePackage extends Thread {
 
         makeTranslatedPackage(reviewList, listTP);
 
-        //System.out.println("list All Original Reviews size: " + reviewList.size());
-        //System.out.println("list Translated Package for API size: " + listTP.size());
+        System.out.println("list All Original Reviews size: " + reviewList.size());
+        System.out.println("list Translated Package for API size: " + listTP.size());
         //System.out.println("before fill up listReview ");
+        /*for (int i = 0; i <= listTP.size()-1; ++i) {
+            System.out.println(listTP.get(i).getOriginalTPMessage());
+        }*/
+        //getTranslatedResult(reviewList,listTP);
 
         //iteratorReview(reviewList);
     }

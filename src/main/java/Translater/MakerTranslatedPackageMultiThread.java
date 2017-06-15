@@ -32,7 +32,7 @@ public class MakerTranslatedPackageMultiThread extends Thread {
     public void runMultiThreadTranslatedPackage(ArrayList<ArrayList<Review>> arrayReviewList) {
 
         for (int i = 0; i < processors; i++) {
-            ArrayList<TranslatePackage> listTPthread = new ArrayList<TranslatePackage>();
+            ArrayList<TranslatePackage> listTPthread = new ArrayList<>();
             MakerTranslatePackage makerTranslatePackage = new MakerTranslatePackage(arrayReviewList.get(i), listTPthread);
             makerTranslatePackage.start();
 

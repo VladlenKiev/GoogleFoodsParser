@@ -102,8 +102,7 @@ public class Main {
     }
 
     private static boolean checkAPIKEY(){
-        //String pathApi = "./API_KEY.txt";
-        String pathApi = "D:\\DEVenv\\GoogleFoodsParser\\target\\API_KEY.txt";
+        String pathApi = "./API_KEY.txt";
         BufferedReader br = null;
         String line=null;
         String apiKey=null;
