@@ -25,5 +25,8 @@
         <module name="GoogleFoodsParser" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="GoogleFoodsParser" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,6 +1,7 @@
 package Parser;
 
 import Model.Product;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -49,12 +50,10 @@ public class TopProduct extends Thread {
             findMostCommentProduct(productCountMap);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File with Product is not found! Parsing is not running!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File with Product can not be read! Parsing cannot being running!");
         }
-
-
     }
 
     private static Product splitCSVforProduct(String line) {
@@ -72,7 +71,7 @@ public class TopProduct extends Thread {
                 for (Product pMap : productCountMap.values()) {
                     if (pMap.getCounter() == 1)
                         System.out.println(c + " ) " + pMap.toString());
-                    if (c == 400)
+                    if (c == 1000)
                         break;
                     c++;
                 }

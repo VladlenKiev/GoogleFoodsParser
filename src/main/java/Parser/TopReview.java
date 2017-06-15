@@ -1,6 +1,7 @@
 package Parser;
 
 import Model.Review;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -39,11 +40,10 @@ public class TopReview extends Thread {
                 Review review = splitCSVforReview(line);
                 reviewList.add(review);
             }
-
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File with Review is not found! Parsing is not running!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File with Review can not be read! Parsing cannot being running!");
         }
 
         //iteratorReview(reviewList);
@@ -59,6 +59,6 @@ public class TopReview extends Thread {
 
     private static Review splitCSVforReview(String line) {
         String[] valueCSV = line.split(",");
-        return new Review(valueCSV[9], "not translated");
+        return new Review(valueCSV[9]);
     }
 }

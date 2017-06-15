@@ -49,12 +49,10 @@ public class TopUser extends Thread {
             findMostActiveUsers(userCountMap);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File with User is not found! Parsing is not running!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File with User can not be read! Parsing cannot being running!");
         }
-
-
     }
 
     private static User splitCSVforUser(String line) {
@@ -66,8 +64,6 @@ public class TopUser extends Thread {
     public static void findMostActiveUsers(HashMap<String, User> userCountMap) {
         SortedSet<User> usersSortSet = new TreeSet<>(Collections.reverseOrder());
         usersSortSet.addAll(userCountMap.values());
-        System.out.println(userCountMap.size());
-        System.out.println(usersSortSet.size());
 
         int c = 0;
         for (User u : usersSortSet) {
@@ -75,7 +71,7 @@ public class TopUser extends Thread {
                 for (User uMap : userCountMap.values()) {
                     if (uMap.getCounter() == 1)
                         System.out.println(c + " ) " + uMap.toString());
-                    if (c == 500)
+                    if (c == 1000)
                         break;
                     c++;
                 }

@@ -2,6 +2,7 @@ package Parser;
 
 
 import Model.Word;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -47,9 +48,9 @@ public class TopWord extends Thread {
             findMostActiveWord(wordCountMap);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("File with Review is not found! Parsing is not running!");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File with Review can not be read! Parsing cannot being running!");
         }
     }
 
